@@ -15,6 +15,6 @@ GRANT ALL ON ALL ROUTINES IN SCHEMA auth TO postgres;
 GRANT ALL ON ALL ROUTINES IN SCHEMA storage TO postgres;
 GRANT ALL ON ALL ROUTINES IN SCHEMA extensions TO postgres;
 ALTER ROLE postgres CREATEDB CREATEROLE LOGIN BYPASSRLS;
-GRANT NOSUPERUSER to postgres;
+REVOKE rds_superuser from postgres;
 GRANT rds_replication to postgres;
 -- migrate:down
