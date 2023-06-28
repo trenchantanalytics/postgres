@@ -37,7 +37,7 @@ if [ -z "${USE_DBMATE:-}" ]; then
     # run migrations as super user - postgres user demoted in post-setup
     for sql in "$db"/migrations/*.sql; do
         echo "$0: running $sql"
-        psql -v ON_ERROR_STOP=1 --no-password --no-psqlrc -U supabase_admin -f "$sql"
+        psql -v ON_ERROR_STOP=1 --no-password --no-psqlrc -U postgres -f "$sql"
     done
 else
     # run init scripts as postgres user
