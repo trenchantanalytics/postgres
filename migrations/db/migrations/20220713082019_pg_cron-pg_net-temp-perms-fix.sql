@@ -3,10 +3,10 @@ DO $$
 DECLARE
   pg_cron_installed boolean;
 BEGIN
-  -- checks if pg_cron is enabled   
+  -- checks if pg_cron is enabled
   pg_cron_installed = (
-    select count(*) = 1 
-    from pg_available_extensions 
+    select count(*) = 1
+    from pg_available_extensions
     where name = 'pg_cron'
     and installed_version is not null
   );
@@ -27,7 +27,7 @@ BEGIN
     alter default privileges for user supabase_admin in schema cron grant all
         on functions to postgres with grant option;
 
-    grant all privileges on all tables in schema cron to postgres with grant option; 
+    grant all privileges on all tables in schema cron to postgres with grant option;
   END IF;
 END $$;
 
@@ -37,14 +37,14 @@ DECLARE
 BEGIN
   -- checks if pg_net is enabled
   pg_net_installed = (
-    select count(*) = 1 
-    from pg_available_extensions 
+    select count(*) = 1
+    from pg_available_extensions
     where name = 'pg_net'
     and installed_version is not null
-      
+
   );
 
-  IF pg_net_installed 
+  IF pg_net_installed
   THEN
     IF NOT EXISTS (
       SELECT 1
@@ -52,7 +52,8 @@ BEGIN
       WHERE rolname = 'supabase_functions_admin'
     )
     THEN
-      CREATE USER supabase_functions_admin NOINHERIT CREATEROLE LOGIN NOREPLICATION;
+      CREATE USER supabase_functions_admin NOINHERIT CREATEROLE LOGIN;
+      REVOKE rds_replication FROM supabase_functions_admin;
     END IF;
 
     GRANT USAGE ON SCHEMA net TO supabase_functions_admin, postgres, anon, authenticated, service_role;
