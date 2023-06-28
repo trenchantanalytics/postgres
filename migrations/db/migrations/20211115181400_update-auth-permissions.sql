@@ -15,6 +15,10 @@ GRANT USAGE ON SCHEMA auth TO postgres;
 GRANT ALL ON ALL TABLES IN SCHEMA auth TO postgres, dashboard_user;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA auth TO postgres, dashboard_user;
 GRANT ALL ON ALL ROUTINES IN SCHEMA auth TO postgres, dashboard_user;
+
+-- new
+alter group supabase_auth_admin add user postgres;
+
 ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON TABLES TO postgres, dashboard_user;
 ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON SEQUENCES TO postgres, dashboard_user;
 ALTER DEFAULT PRIVILEGES FOR ROLE supabase_auth_admin IN SCHEMA auth GRANT ALL ON ROUTINES TO postgres, dashboard_user;
